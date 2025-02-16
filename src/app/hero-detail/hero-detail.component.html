@@ -1,14 +1,28 @@
+@if (loading) {
+<div>Loading details...</div>
+}
+
 @if (hero) {
 <div>
-    <img 
+  <img
     [attr.loading]="'lazy'"
-    src="{{ hero.thumbnail?.path }}.{{ hero.thumbnail?.extension }}" width="500">
-    <h2>{{hero.name | uppercase}} Details</h2>
-    <div><span>{{hero.name}} aparece en </span>{{hero.comics.available}} comics</div>
-    <div>
-        <label for="hero-name">Name: </label>
-        <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name" />
-    </div>
-    <button type="button" (click)="goBack()">go back</button>
+    src="{{ hero.thumbnail?.path }}.{{
+      hero.thumbnail?.extension || 'assets/default-hero.png'
+    }}"
+    width="500"
+  />
+  <h2>{{ hero.name | uppercase }} Details</h2>
+  <div>
+    <span>{{ hero.name }} apear in </span>{{ hero.comics.available }} comics
+  </div>
+  <div>
+    <label for="hero-name">Name: </label>
+    <input
+      id="hero-name"
+      [(ngModel)]="hero.name"
+      placeholder="Hero to search..."
+    />
+  </div>
+  <button type="button" (click)="goBack()">Go Back</button>
 </div>
 }

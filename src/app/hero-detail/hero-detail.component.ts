@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Hero } from '../hero.interface';
 import { FormsModule } from '@angular/forms';
 import { HeroService } from '../hero.service';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-hero-detail',
+  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './hero-detail.component.html',
-  styleUrl: './hero-detail.component.scss'
+  styleUrls: ['./hero-detail.component.scss']
 })
-export class HeroDetailComponent implements OnInit {
+export class HeroDetailComponent implements OnInit, OnDestroy {
   hero: Hero | undefined;
+  loading = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -25,12 +29,24 @@ export class HeroDetailComponent implements OnInit {
   }
 
   getHero(): void {
-    const id = parseInt(this.route.snapshot.paramMap.get('id')!);
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (!id) return;
+
+    this.loading = true;
     this.heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(hero => {
+        this.hero = hero;
+        this.loading = false;
+      });
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

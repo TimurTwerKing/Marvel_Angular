@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   debounceTime,
   distinctUntilChanged,
-  map,
   Observable,
-  shareReplay,
   Subject,
   switchMap,
 } from 'rxjs';
@@ -16,9 +14,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-hero-search',
+  standalone: true,
   imports: [RouterModule, CommonModule, MatProgressSpinnerModule],
   templateUrl: './hero-search.component.html',
-  styleUrl: './hero-search.component.scss',
+  styleUrls: ['./hero-search.component.scss'],
 })
 export class HeroSearchComponent implements OnInit {
   heroes$!: Observable<Hero[]>;

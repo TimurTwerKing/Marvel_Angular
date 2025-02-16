@@ -1,9 +1,13 @@
 <h2>HEROES</h2>
 
+@if (loading) {
+<div>Loading Heroes...</div>
+}
+
 <ul class="heroes">
   @for (hero of heroes; track hero.id) {
   <li>
-    <a routerLink="/hero/{{ hero.id }}">
+    <a [routerLink]="'/hero/' + hero.id">
       <span class="badge">{{ hero.id }}</span> {{ hero.name }}
     </a>
   </li>
@@ -11,13 +15,16 @@
 </ul>
 
 <div class="pagination-controls">
-  <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+  <button
+    (click)="changePage(currentPage - 1)"
+    [disabled]="currentPage === 1 || loading"
+  >
     Previous
   </button>
   <span>Page {{ currentPage }} of {{ totalPages }}</span>
   <button
     (click)="changePage(currentPage + 1)"
-    [disabled]="currentPage === totalPages"
+    [disabled]="currentPage === totalPages || loading"
   >
     Next
   </button>

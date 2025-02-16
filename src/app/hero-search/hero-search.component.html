@@ -5,7 +5,7 @@
   <ul class="search-result">
     @for(hero of heroes$ | async; track hero.id) {
     <li>
-      <a routerLink="/hero/{{hero.id}}">
+      <a [routerLink]="'/hero/' + hero.id">
         {{ hero.name }}
       </a>
     </li>

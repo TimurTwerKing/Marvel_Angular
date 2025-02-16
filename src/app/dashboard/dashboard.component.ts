@@ -4,18 +4,20 @@ import { Hero } from '../hero.interface';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, Subject, switchMap, tap, } from 'rxjs';
 import { HeroSearchComponent } from '../hero-search/hero-search.component';
+import { takeUntil, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
+  standalone: true,
   imports: [CommonModule, RouterModule, FormsModule, HeroSearchComponent],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
   loading = false;
+  private destroy$ = new Subject<void>(); // Manejo de desuscripciones
 
   constructor(private heroService: HeroService) { }
 
@@ -24,12 +26,23 @@ export class DashboardComponent implements OnInit {
   }
 
   loadRandomHeroes(): void {
-
     this.loading = true;
+    const totalCount = 100; // Example total count, replace with actual value
+    this.heroService
+      .getHeroes(totalCount)
+      .pipe(takeUntil(this.destroy$)) // Evita memory leaks
+      .subscribe((heroes) => {
+        this.heroes = heroes;
+        this.loading = false;
+      });
+  }
 
-    this.heroService.getHeroes().subscribe((heroe) => {
-      this.heroes = heroe;
-      this.loading = false;
-    });
+  trackById(index: number, hero: Hero): number {
+    return hero.id;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
