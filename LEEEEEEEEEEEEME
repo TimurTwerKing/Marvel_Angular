@@ -1,0 +1,8 @@
+instalar angular:
+npm install -g @angular/cli
+
+instalar dependencias:
+npm install
+
+
+

@@ -1,0 +1,14 @@
+@if (hero) {
+<div>
+    <img 
+    [attr.loading]="'lazy'"
+    src="{{ hero.thumbnail?.path }}.{{ hero.thumbnail?.extension }}" width="500">
+    <h2>{{hero.name | uppercase}} Details</h2>
+    <div><span>{{hero.name}} aparece en </span>{{hero.comics.available}} comics</div>
+    <div>
+        <label for="hero-name">Name: </label>
+        <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name" />
+    </div>
+    <button type="button" (click)="goBack()">go back</button>
+</div>
+}

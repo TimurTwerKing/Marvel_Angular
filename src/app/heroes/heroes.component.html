@@ -1,0 +1,24 @@
+<h2>HEROES</h2>
+
+<ul class="heroes">
+  @for (hero of heroes; track hero.id) {
+  <li>
+    <a routerLink="/hero/{{ hero.id }}">
+      <span class="badge">{{ hero.id }}</span> {{ hero.name }}
+    </a>
+  </li>
+  }
+</ul>
+
+<div class="pagination-controls">
+  <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+    Previous
+  </button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button
+    (click)="changePage(currentPage + 1)"
+    [disabled]="currentPage === totalPages"
+  >
+    Next
+  </button>
+</div>

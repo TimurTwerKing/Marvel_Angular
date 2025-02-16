@@ -1,0 +1,44 @@
+{
+    "heroes": [
+        {
+            "id": 1,
+            "name": "Batman"
+        },
+        {
+            "id": 2,
+            "name": "Capi"
+        },
+        {
+            "id": 3,
+            "name": "SuperPablo"
+        },
+        {
+            "id": 4,
+            "name": "MegaJorge"
+        },
+        {
+            "id": 5,
+            "name": "CamiloMan"
+        },
+        {
+            "id": 6,
+            "name": "Timurnator"
+        },
+        {
+            "id": 7,
+            "name": "Green Arrow"
+        },
+        {
+            "id": 8,
+            "name": "Blue Spoon"
+        },
+        {
+            "id": 9,
+            "name": "Red richars"
+        },
+        {
+            "id": 10,
+            "name": "Errejón"
+        }
+    ]
+}

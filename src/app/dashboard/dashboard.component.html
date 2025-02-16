@@ -1,0 +1,24 @@
+<app-hero-search></app-hero-search>
+
+<div class="heroes-menu">
+  @if (heroes) { @for (hero of heroes; track hero.id) {
+  <div class="hero-card">
+    <a routerLink="/hero/{{ hero.id }}">
+      <div class="hero-img-wrapper">
+          <img
+            [attr.loading]="'lazy'"
+            src="{{ hero.thumbnail?.path }}.{{ hero.thumbnail?.extension }}"
+            class="hero-img"
+          />
+      </div>
+      <div class="hero-overlay">
+        <div class="hero-name">
+          <span></span>
+          {{ hero.name }}
+          <span></span>
+        </div>
+      </div>
+    </a>
+  </div>
+  } }
+</div>
